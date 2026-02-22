@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Registro Presenze - Scuola di Ballo</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f2f2f2;
+    padding: 20px;
+}
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+h1 {
+    text-align: center;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Presenze – Salsa Base</h1>
+
+<label>Data lezione:</label>
+<input type="date" id="data">
+
+<ul>
+<li>Marco Rossi <input type="checkbox"></li>
+<li>Giulia Bianchi <input type="checkbox"></li>
+<li>Luca Verdi <input type="checkbox"></li>
+<li>Anna Neri <input type="checkbox"></li>
+</ul>
+
+<button onclick="salva()">Salva Presenze</button>
+</div>
+
+<script>
+document.getElementById("data").valueAsDate = new Date();
+
+function salva() {
+    const data = document.getElementById("data").value;
+    const corso = "Salsa Base";
+    const righe = document.querySelectorAll("ul li");
+    let presenze = [];
+
+    righe.forEach(li => {
+        const nome = li.childNodes[0].textContent.trim();
+        const presente = li.querySelector("input").checked ? "SI" : "NO";
+
+        presenze.push({
+            data: data,
+            corso: corso,
+            nome: nome,
+            presente: presente
+        });
+    });
+
+    fetch("INCOLLA_QUI_LINK", {
+        method: "POST",
+        body: JSON.stringify(presenze)
+    })
+    .then(res => res.text())
+    .then(() => alert("Presenze salvate con successo!"))
+    .catch(() => alert("Errore nel salvataggio"));
+}
+</script>
+
+</body>
+</html>
