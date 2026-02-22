@@ -151,7 +151,7 @@ function salva() {
     presenze.push({data, corso, nome, presente});
   });
 
-  fetch("INCOLLA_QUI_LINK", {
+  fetch("https://script.google.com/macros/s/AKfycbyZilAQLbhTnnpm4BcRoOhPBfKCU3P4NFY10IVKq9rICzDzqUH6_rEgdV580J8xfPy3vg/exec", {
     method: "POST",
     body: JSON.stringify(presenze)
   })
