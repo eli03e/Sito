@@ -27,6 +27,7 @@ select, input[type="date"] {
     font-size: 1em;
     border-radius: 5px;
     border: 1px solid #ccc;
+    box-sizing: border-box; /* assicura che padding e bordo siano inclusi nella larghezza */
 }
 ul {
     list-style: none;
@@ -35,15 +36,29 @@ ul {
 }
 li {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     padding: 12px 8px;
     border-bottom: 1px solid #ddd;
     font-size: 1em;
 }
+li div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 li input[type="checkbox"] {
     transform: scale(1.5);
     margin-left: 10px;
+}
+li textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    resize: vertical;
 }
 button {
     width: 100%;
@@ -60,7 +75,7 @@ button:active {
     background: #219150;
 }
 @media screen and (max-width: 400px){
-    li {
+    li div {
         flex-direction: column;
         align-items: flex-start;
     }
@@ -123,10 +138,24 @@ function aggiornaStudenti() {
   const studenti = corsi[selectCorso.value];
   studenti.forEach(s => {
     const li = document.createElement("li");
-    li.textContent = s + " ";
+    
+    // div per nome + checkbox
+    const divTop = document.createElement("div");
+    const spanNome = document.createElement("span");
+    spanNome.textContent = s;
+    divTop.appendChild(spanNome);
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    li.appendChild(checkbox);
+    divTop.appendChild(checkbox);
+
+    li.appendChild(divTop);
+
+    // textarea per note
+    const textarea = document.createElement("textarea");
+    textarea.placeholder = "Note...";
+    li.appendChild(textarea);
+
     listaStudenti.appendChild(li);
   });
 }
@@ -146,9 +175,10 @@ function salva() {
   let presenze = [];
 
   righe.forEach(li => {
-    const nome = li.childNodes[0].textContent.trim();
-    const presente = li.querySelector("input").checked ? "X" : ""; // <--- X se presente, vuoto se assente
-    presenze.push({data, corso, nome, presente});
+    const nome = li.querySelector("span").textContent.trim();
+    const presente = li.querySelector("input[type='checkbox']").checked ? "X" : "";
+    const note = li.querySelector("textarea").value.trim();
+    presenze.push({data, corso, nome, presente, note});
   });
 
   fetch("https://script.google.com/macros/s/AKfycbyZilAQLbhTnnpm4BcRoOhPBfKCU3P4NFY10IVKq9rICzDzqUH6_rEgdV580J8xfPy3vg/exec", {
