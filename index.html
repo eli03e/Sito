@@ -2,98 +2,104 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Registro Presenze - Bounce Swing Lovers</title>
-
+<title>Registro Presenze - Scuola di Ballo</title>
 <style>
-body {
-    font-family: Arial;
-    background: #f2f2f2;
-    padding: 20px;
-}
-.container {
-    max-width: 500px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-}
-h1 {
-    text-align: center;
-}
-ul {
-    list-style: none;
-    padding: 0;
-}
-li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    background: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-}
-input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-}
+body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+.container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+h1 { text-align: center; }
+select, input[type="date"] { width: 100%; padding: 8px; margin-bottom: 15px; }
+ul { list-style: none; padding: 0; margin:0;}
+li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; }
+button { width: 100%; padding: 12px; margin-top: 15px; background: #27ae60; color: white; border: none; border-radius: 5px; font-size: 16px; }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-<h1>Presenze – Lindy Hop 1 PD Lunedì</h1>
+<h1>Registro Presenze</h1>
+
+<label>Disciplina:</label>
+<select id="corso"></select>
 
 <label>Data lezione:</label>
 <input type="date" id="data">
 
-<ul>
-<li>Marco Rossi <input type="checkbox"></li>
-<li>Giulia Bianchi <input type="checkbox"></li>
-<li>Luca Verdi <input type="checkbox"></li>
-<li>Anna Neri <input type="checkbox"></li>
-</ul>
+<ul id="listaStudenti"></ul>
 
 <button onclick="salva()">Salva Presenze</button>
 </div>
 
 <script>
+// ==== Lista discipline e studenti ====
+const corsi = {
+  "Lindy Hop 1 PD Martedì": ["Marco Rossi","Giulia Bianchi","Luca Verdi"],
+  "Lindy Hop 1 PD Mercoledì": ["Marco Rossi","Giulia Bianchi","Luca Verdi"],
+  "Lindy Hop 1 VE Giovedì": ["Marco Rossi","Giulia Bianchi","Luca Verdi"],
+  "Blues 1 PD Lunedì": ["Anna Neri","Paolo Blu"],
+  "Balboa 1 PD Mercoledì": ["Anna Neri","Paolo Blu"],
+  "Solo Jazz 1 PD Martedì": ["Luca Verdi","Anna Neri"],
+  "Shag 1 PD Martedì": ["Marco Rossi","Paolo Blu"],
+  "Balboa 1 TV Giovedì": ["Marco Rossi","Giulia Bianchi"],
+  "Lindy 2 PD Lunedì": ["Giulia Bianchi","Luca Verdi"],
+  "Lindy Hop 2 PD Mercoledì": ["Marco Rossi","Anna Neri"],
+  "Balboa 2 PD Mercoledì": ["Luca Verdi","Paolo Blu"],
+  "Balboa 2 TV Giovedì": ["Giulia Bianchi","Anna Neri"],
+  "Lindy Hop 2 TV Giovedì": ["Marco Rossi","Luca Verdi"],
+  "Lindy Hop 3 PD Mercoledì": ["Anna Neri","Paolo Blu"],
+  "Lindy Hop 4 TV Giovedì": ["Marco Rossi","Giulia Bianchi"]
+};
+
+// ==== Popola menu a tendina ====
+const selectCorso = document.getElementById("corso");
+Object.keys(corsi).forEach(c => {
+  const option = document.createElement("option");
+  option.value = c;
+  option.textContent = c;
+  selectCorso.appendChild(option);
+});
+
+// ==== Popola lista studenti dinamicamente ====
+const listaStudenti = document.getElementById("listaStudenti");
+function aggiornaStudenti() {
+  listaStudenti.innerHTML = "";
+  const studenti = corsi[selectCorso.value];
+  studenti.forEach(s => {
+    const li = document.createElement("li");
+    li.textContent = s + " ";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    li.appendChild(checkbox);
+    listaStudenti.appendChild(li);
+  });
+}
+
+// Aggiorna lista all'avvio
+selectCorso.addEventListener("change", aggiornaStudenti);
+aggiornaStudenti();
+
+// ==== Imposta data di default ====
 document.getElementById("data").valueAsDate = new Date();
 
+// ==== Salvataggio su Google Fogli ====
 function salva() {
-    const data = document.getElementById("data").value;
-    const corso = "Lindy Hop 1 PD Lunedì";
-    const righe = document.querySelectorAll("ul li");
-    let presenze = [];
+  const data = document.getElementById("data").value;
+  const corso = selectCorso.value;
+  const righe = listaStudenti.querySelectorAll("li");
+  let presenze = [];
 
-    righe.forEach(li => {
-        const nome = li.childNodes[0].textContent.trim();
-        const presente = li.querySelector("input").checked ? "SI" : "NO";
+  righe.forEach(li => {
+    const nome = li.childNodes[0].textContent.trim();
+    const presente = li.querySelector("input").checked ? "SI" : "NO";
+    presenze.push({data, corso, nome, presente});
+  });
 
-        presenze.push({
-            data: data,
-            corso: corso,
-            nome: nome,
-            presente: presente
-        });
-    });
-
-    fetch("https://script.google.com/macros/s/AKfycbyZilAQLbhTnnpm4BcRoOhPBfKCU3P4NFY10IVKq9rICzDzqUH6_rEgdV580J8xfPy3vg/exec", {
-        method: "POST",
-        body: JSON.stringify(presenze)
-    })
-    .then(res => res.text())
-    .then(() => alert("Presenze salvate con successo!"))
-    .catch(() => alert("Errore nel salvataggio"));
+  fetch("https://script.google.com/macros/s/AKfycbyZilAQLbhTnnpm4BcRoOhPBfKCU3P4NFY10IVKq9rICzDzqUH6_rEgdV580J8xfPy3vg/exec", {
+    method: "POST",
+    body: JSON.stringify(presenze)
+  })
+  .then(res => res.text())
+  .then(msg => alert("Presenze salvate con successo!"))
+  .catch(err => alert("Errore nel salvataggio: " + err));
 }
 </script>
 
