@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Registro Presenze - Scuola di Ballo</title>
+<title>Registro Presenze - Bounce Swing Lovers</title>
 <style>
 body {
     font-family: Arial;
@@ -90,21 +90,21 @@ button:active {
 <script>
 // ==== Lista discipline e studenti ====
 const corsi = {
-  "Lindy Hop 1 PD Martedì": ["Marco Rossi","Giulia Bianchi","Luca Verdi"],
-  "Lindy Hop 1 PD Mercoledì": ["Marco Rossi","Giulia Bianchi","Luca Verdi"],
-  "Lindy Hop 1 VE Giovedì": ["Marco Rossi","Giulia Bianchi","Luca Verdi"],
-  "Blues 1 PD Lunedì": ["Anna Neri","Paolo Blu"],
-  "Balboa 1 PD Mercoledì": ["Anna Neri","Paolo Blu"],
-  "Solo Jazz 1 PD Martedì": ["Luca Verdi","Anna Neri"],
-  "Shag 1 PD Martedì": ["Marco Rossi","Paolo Blu"],
-  "Balboa 1 TV Giovedì": ["Marco Rossi","Giulia Bianchi"],
-  "Lindy 2 PD Lunedì": ["Giulia Bianchi","Luca Verdi"],
-  "Lindy Hop 2 PD Mercoledì": ["Marco Rossi","Anna Neri"],
-  "Balboa 2 PD Mercoledì": ["Luca Verdi","Paolo Blu"],
-  "Balboa 2 TV Giovedì": ["Giulia Bianchi","Anna Neri"],
-  "Lindy Hop 2 TV Giovedì": ["Marco Rossi","Luca Verdi"],
-  "Lindy Hop 3 PD Mercoledì": ["Anna Neri","Paolo Blu"],
-  "Lindy Hop 4 TV Giovedì": ["Marco Rossi","Giulia Bianchi"]
+  "Lindy Hop 1 PD Martedì": ["Alberto Bertossi", "Stefan Bizzotto", "Ilaria Bocola", "Alvise Bolzonella", "Elisabetta BRendolin", "Bruno Cacciavillani", "Elisabetta Cesaro", "Emanuela Crivellaro", "Ermanno Di Frenna", "Maria Fiorin", "Alexandra Gorgan", "Zertihun Gozzi", "Silvia Granieri", "Enrico Guarnieri", "Caterina Juhasz", "Chiara Marchetti", "Krizia Nobile", "Aurora Peloso", "Silvia Peruzzo", "Filippo Sinigaglia", "Alban Tamisier", "Laura Trevisan", "Luca Zattarin"],
+  "Lindy Hop 1 PD Mercoledì": [" Lorella Baldin", "Sara Bencivelli", "Anita Botton", "Angelo Brencich", "Giulia Caprari", "Doriana Chiarentin", "Chiara Cosci", "Stefano Corradin", "Franco Da Re", "Paola De Vecchi", "Elisa Dona'", "Marco Emanuele", "Claudia Favero", "Elisa Fiabane", "Carlo Alberto Flora", "Eva Franceschini", "Federica Graziosi", "Giovan Battista Impallomeni", "Marta Ippolito", "Francesco Malvasi", "Federica Laura Manna", "Marco Miglietta", "Samuele Pedrielli", "Gabrele Perini", "Michele Pizzeghello", "Maria Francesca Politano", "Clara Pomoni", "Simone Quaglio", "Isabella Rizzi", "Iris Santagata", "Claudio Scarano", "Elena Tonellotto", "Roberta Zamberlan", "Daniela Zuin", "Elisa Zambotto", "Linda Torelli"],
+  "Lindy Hop 1 VE Giovedì": ["Elisabetta Amadi", "Anna Battaglia", "Mauro Baronchelli", "Roberta Beccari", "Margherita Berardi", "Caterina Bonelli", "Valentina Brailovich", "Marco Broggio", "Margherita Camillo", "Caterina Cecchini", "Giacomo Filagrana", "Silvia Fontana", "Marion Houssin", "Noemi Martina Licitra", "Anna Lopriore", "Tommaso Macelloni", "Giulia Marcelloni", "Giulia Miozzari", "Elena Orlandi", "Lucy Pesce", "Elena Petrovska", "Silvano Rossetti", "Giulia Serafin", "Giorgia Starace", "Stefano Stomeo", "Greta Toppan", "Cristina Zago", "Beatrice Zerbinato"],
+  "Blues 1 PD Lunedì": ["Alberto Bertossi", "Samuele Pedrielli", "Mariagiulia Masiero", "Luisa Romano", "Antonio Trivellato"],
+  "Balboa 1 PD Mercoledì": ["Carla Biasibetti", "Alberto Bertossi", "Fabio Bragola", "Gianfranco Danieli", "Margherita Richieri Richieri", "Bianca Spangel", "Nicola Varotto"],
+  "Solo Jazz 1 PD Martedì": ["Elisa Fiabane", "Alessandra Lucido", "Patrizia Piovan", "Deborah Scorzelli", "Irene Viezzoli", "Michela Zorzan"],
+  "Shag 1 PD Martedì": ["Flavio Benasciutti", "Margherita Borsoi", "Mariangela Caforio", "Rodica Calancea", "Federico Caparotto", "Carlo Ciulla", "Giorgia Dalla Libera", "Hela Machiedo", "Ivan Turco", "Elena Venerus", "Irene Venturini", "Elena Zamò"],
+  "Balboa 1 TV Giovedì": ["Mariangela Bernardi", "Caterina Burlini", "Giuseppe Cadorin", "Camilla Cescon", "Cristina Cultrera", "Paola Favaro", "Lorenzo Ferraro", "Mattia Antonio Marano", "Tommaso Salviati", "Carmelita Velardita", "Gabriele Zanuttigh"],
+  "Lindy 2 PD Lunedì": ["Danilo Cargione", "Marco Cavarzan", "Hélène Deleris", "Alice Di Sisti", "Ottavia Guidi", "Margherita Lera", "Alice Malaguti", "Mariagiulia Masiero", "Roberta Mazzucco", "Linda Nordio", "Elisabetta Rampazzo", "Luisa Romano", "Micol Savastano", "Sandro Savino", "Anna Sensale", "Bianca Spangel", "Matteo Tonello", "Antonio Trivellato", "Orazio Trivellato"],
+  "Lindy Hop 2 PD Mercoledì": ["Alessio Abdolahyan", "Marco Avventi", "Federica Baldassi", "Davide Bernardi", "Beatrice Borghi", "Angelo Brencich", "Elena Busatto", "Chiara Capparotto", "Stefania Castrignano", "Marco Ciardo", "Marta Dal Corso", "Laura Dall'Aglio", "Marino Di Lorenzo", "Valerio Maria Di Pasquale Fiasca", "Diane Doolaeghe", "Elena Ferraris", "Francesco Folena", "Valentina Giorgetti", "Serena Luce", "Hela Machiedo", "Chiara Mangia", "Anna Mariotto", "Marianna Menegus", "Ketty Miraval", "Vittoria Morbiato", "Sara Musumeci", "Francesca Passlacqua", "Emma Gioia Pegoraro", "Marco Perin", "Giorgia Pistore", "Jean Denis Rosell", "Anastasia Santo", "Matteo Tonello", "Ivan Turco", "Caterina Ugolini", "Luis Enrique Valverde Fortanel", "Ester Varsalona", "Silvia Zampato"],
+  "Balboa 2 PD Mercoledì": ["Giuliano Antonaci", "Elisabetta Basso", "Elena Benetello", "Giacommo Bortolami", "Alice Carpanese", "Elisa Franzoso", "Lucia Gecchelin", "Martino Grinzato", "Claudia Iannice", "Alessandra Lucido", "Ignazio Maniscalco", "Alessandro Michieli", "Luciano Monti", "Elia Rebellato", "Anna Urciolo"],
+  "Balboa 2 TV Giovedì": ["Elisa Allegro", "Elena Battocchio", "Federica Denaro", "Francesco Claudio Gallo", "Antonio Marchetti", "Fabrizio Micheli", "Marisa Nicoletti", "Erik Olivotto", "Cristina Ponchia", "Laura Sacco Panchia", "Giulia Selmin", "Augusto Zanchetta", "Andrea Zambon"],
+  "Lindy Hop 2 TV Giovedì": ["Tommaso Bertoldini", "Giulia Blascovich", "Gionatan Ciavatti", "Ilaria Di Nuzzo", "Alessandro Foffano", "Holgen Kazazi", "Barbara Ortolan", "Roberta Vianello", "Tiziana Zocca"],
+  "Lindy Hop 3 PD Mercoledì": ["Alessandra Arthemalle", "Valerio Beato", "Elena Benetello", "Margherita Borsoi", "Alice Carpanese", "Elena Casagrande", "Isabella Cinque", "Gaia Comis", "Vittoria Cuteri", "Dario Favarato", "Claudia Isnnice", "Sabrina Lion", "Alessandra Lucido", "Mariachiara Manfredini", "Lara Mika", "Daniela Muffato", "Laura Perin", "Giovanni Peritore", "Federico Scianna", "Gustavo Tocchi", "Federica Tonazzini", "Alessandro Zago"],
+  "Lindy Hop 4 TV Giovedì": ["Elisa Allegro", "Chiara Cescato", "Giovanni Comacchio", "Francesco Claudio Gallo", "Elisa Greco", "Matteo Marani", "Antonio Marchetti", "Fabrizio Micheli", "Marisa Nicoletti", "Erik Olivotto", "Davide Piscitelli", "Laura Sacco Panchia", "Giulia Selmin", "Giulia Sossai", "Francesca Vardiero", "Mauro Zanatta"]
 };
 
 // ==== Popola menu a tendina ====
